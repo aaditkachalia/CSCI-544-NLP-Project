@@ -1,0 +1,77 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+  async function postData () {
+  const text = {
+    name: document.getElementById("inputtextarea").value
+  }
+
+  const response = await fetch("http://127.0.0.1:5000/getdata", {
+    method: "POST",
+    body: JSON.stringify(text),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+  if (response.status === 200) {
+        let data = await response.text();
+        d= JSON.parse(data)
+        console.log(data)
+        document.getElementById("outputtextarea1").value = d.data[0]['r1']
+        document.getElementById("outputtextarea2").value = d.data[0]['r2']
+        document.getElementById("outputtextarea3").value = d.data[0]['r3']
+        document.getElementById("outputtextarea4").value = d.data[0]['r4']
+    }
+    else{
+      console.log("no data")
+    }
+
+
+}
+</script>
+
+</head>
+
+<body>
+    <div style="text-align:center ">
+    <h2 style="margin-top:5%">Group 34: Text Summarization</h2>
+      
+      <textarea class="form-control rounded-0" id="inputtextarea" rows="10" style="width: 40%; margin-left:30%" ></textarea>
+      
+      <button type="button" style="margin-top:2%" class="btn btn-primary" onclick="postData()">Analyze</button>
+      <div id="block_container_label" style="margin-left: 10%;margin-top:2%">
+        <label for="outputtextarea1">w2vKmeans</label>
+        <label for="outputtextarea2" style="margin-left: 40%;">w2vGMM</label>
+      </div>
+
+      <div id="block_container">
+        <textarea class="form-control rounded-0" id="outputtextarea1" rows="10" style="width: 40%;" ></textarea>
+        <textarea class="form-control rounded-0" id="outputtextarea2" rows="10" style="margin-left:15px; width: 40%;" ></textarea>
+      </div>
+
+      <div id="block_container_label" style="margin-left: 10%;margin-top:2%">
+        <label for="outputtextarea1">bertKmeans</label>
+        <label for="outputtextarea2" style="margin-left: 40%;">bertGMM</label>
+      </div>
+
+      <div id="block_container">
+        <textarea class="form-control rounded-0" id="outputtextarea3" rows="10" style="width: 40%;" ></textarea>
+        <textarea class="form-control rounded-0" id="outputtextarea4" rows="10" style="margin-left:15px; width: 40%;" ></textarea>
+      </div>
+
+    </div>
+
+
+</body>
+</html>

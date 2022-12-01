@@ -1,0 +1,8 @@
+#block_container {
+    display: flex;
+    justify-content: center;
+}
+
+#block_container_label {
+    display: flex;
+}
